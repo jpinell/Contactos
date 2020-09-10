@@ -3,21 +3,32 @@ package com.jpinell.contactos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView tvDate;
-    EditText etDate;
+    //EditText etDate;
     DatePickerDialog.OnDateSetListener setListener;
+
+    Button siguiente;
+    TextInputEditText nombres;
+    TextInputEditText fecha;
+    TextInputEditText telefono;
+    TextInputEditText email;
+    TextInputEditText descripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         tvDate = findViewById(R.id.tv_date);
         //etDate = findViewById(R.id.et_date);
+        siguiente = findViewById(R.id.btn_siguiente);
+       nombres = findViewById(R.id.txt_nombre);
+       fecha = findViewById(R.id.tv_date);
+       telefono = findViewById(R.id.txt_telefono);
+       email = findViewById(R.id.txt_email);
+       descripcion = findViewById(R.id.txt_descripcion);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -67,5 +84,22 @@ public class MainActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });*/
+    }
+
+    public void btnSiguiente(View view) {
+        //String nombre = nombres.getText().toString();
+        //String fecha =
+        Intent intent = new Intent(MainActivity.this, DetalleContacto.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("nombre", nombres.getText().toString());
+        bundle.putString("fecha",fecha.getText().toString());
+        bundle.putString("telefono",telefono.getText().toString());
+        bundle.putString("email",email.getText().toString());
+        bundle.putString("descripcion",descripcion.getText().toString());
+
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 }
